@@ -5,7 +5,7 @@ void main(List<String> args) {
   //print(names.last); //invalid
   //print(names.first); //invalid
   const notFound = 'NOT_FOUND';
-  const defaultString = '';
+  const defaultString = 'DEFAULT_VALUE';
   final myList = SafeList(
     defaultValue: defaultString,
     absentValue: notFound,
@@ -14,6 +14,13 @@ void main(List<String> args) {
   print(myList[0]);
   print(myList[1]);
   print(myList[2]);
+
+  myList.length = 4;
+  print(myList.first);
+  print(myList);
+
+  myList.length = 0;
+  print(myList.first);
 }
 
 class SafeList<T> extends ListBase<T> {
