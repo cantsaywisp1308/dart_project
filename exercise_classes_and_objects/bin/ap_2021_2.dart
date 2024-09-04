@@ -5,7 +5,7 @@ void main(List<String> args) {
 
   CombinedTable combined = CombinedTable(table3, table2);
   print(combined.getDesirability());
-  table2.viewQuality = 80;
+  table2.setViewQuality = 80;
   print(combined.getDesirability());
 }
 
@@ -20,7 +20,7 @@ class SingleTable {
   int get height => _height;
   double get viewQuality => _viewQuality;
 
-  set viewQuality(double value) {
+  set setViewQuality(double value) {
     _viewQuality = value;
   }
 }
