@@ -1,4 +1,23 @@
-void main(List<String> args) {}
+void main(List<String> args) {
+  print('Artist');
+  Artist artist = Artist(20, 'Artist');
+  artist.sketchLandscape();
+
+  print("\nEngineer");
+  Engineer engineer = Engineer(22, 'John');
+  engineer.sketchBuilding();
+  engineer.readResearchPapers();
+
+  print("\nDoctor");
+  Doctor doctor = Doctor(34, ' Kellie');
+  doctor.readReports();
+  doctor.workout();
+
+  print("\nBoxer");
+  Boxer boxer = Boxer(19, 'Jamal');
+  boxer.punchIn();
+  boxer.routineExercise();
+}
 
 mixin SharedBehavior {}
 
@@ -40,19 +59,16 @@ mixin Boxing {
   }
 }
 
-class Boxer extends Person {
+class Boxer extends Athlete with Boxing {
   Boxer(super.age, super.name);
 
-  @override
-  eat() {
-    // TODO: implement eat
-    throw UnimplementedError();
+  punchIn() {
+    punch(200);
   }
 
-  @override
-  sleep() {
-    // TODO: implement sleep
-    throw UnimplementedError();
+  void routineExercise() {
+    running(4);
+    weightTraining(40);
   }
 }
 
@@ -61,25 +77,80 @@ class Athlete extends Person with Exercise {
 
   @override
   eat() {
-    // TODO: implement eat
-    throw UnimplementedError();
+    print('An athlete is eating now');
   }
 
   @override
   sleep() {
-    // TODO: implement sleep
-    throw UnimplementedError();
+    print('An athlete is sleeping now');
+  }
+
+  generalRoutine() {
+    running(3);
+    weightTraining(120);
+  }
+}
+
+class Artist extends Person with Sketching {
+  Artist(super.age, super.name);
+
+  @override
+  eat() {
+    print('the artist is eating');
   }
 
   @override
-  running(int mile) {
-    // TODO: implement running
-    return super.running(mile);
+  sleep() {
+    print('the artist is sleeping');
+  }
+
+  sketchLandscape() {
+    sketch("Making landscapes sketches");
+  }
+}
+
+class Engineer extends Person with Sketching, Reading {
+  Engineer(super.age, super.name);
+
+  @override
+  eat() {
+    print('the engineer is eating');
   }
 
   @override
-  weightTraining(int weights) {
-    // TODO: implement weightTraining
-    return super.weightTraining(weights);
+  sleep() {
+    print('the engineer is sleeping');
+  }
+
+  readResearchPapers() {
+    dailyReading("Building Construction");
+  }
+
+  sketchBuilding() {
+    sketch("Sketching engineering drawings");
+  }
+}
+
+class Doctor extends Person with Reading, Exercise {
+  Doctor(super.age, super.name);
+
+  @override
+  eat() {
+    print('the doctor is eating');
+  }
+
+  @override
+  sleep() {
+    print('the doctor is sleeping');
+  }
+
+  readReports() {
+    String topic = "covid";
+    dailyReading(topic);
+  }
+
+  workout() {
+    running(12);
+    weightTraining(110);
   }
 }
