@@ -1,4 +1,18 @@
-void main(List<String> args) {}
+void main(List<String> args) {
+  final personName = personThing.mapIOfType(
+        (Person p) => p.name,
+      ) ??
+      'Unknown person name';
+
+  print(personName);
+
+  final animalName = animalThing.mapIOfType(
+        (Animal p) => p.name,
+      ) ??
+      'Unknown animal name';
+
+  print(animalName);
+}
 
 abstract class Thing {
   final String name;
@@ -21,4 +35,15 @@ class Animal extends Thing {
 
 const Thing personThing = Person(name: 'Bar', age: 20);
 
-const Thing animalThing = Animal(name: 'Bar', species: 'cat');
+const Thing animalThing = Animal(name: 'Foo', species: 'cat');
+
+extension<T> on T {
+  R? mapIOfType<E, R>(R Function(E) f) {
+    final shadow = this;
+    if (shadow is E) {
+      return f(shadow);
+    } else {
+      return null;
+    }
+  }
+}
