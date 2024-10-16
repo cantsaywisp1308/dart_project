@@ -11,7 +11,7 @@ void main(List<String> args) {
   PatientRecord jamesRecord = PatientRecord(
       patientName: 'James Hall',
       dob: DateTime(1993, 13, 09),
-      address: '123 Main St, New Yor',
+      address: '123 Main St, New York',
       phoneNumber: '3125091992',
       email: null,
       medicalHistory: jamesMedicalHistory);

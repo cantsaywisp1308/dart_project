@@ -1,24 +1,11 @@
-Map<String, int> drugList = {};
+List<DrugInventory> drugList = [];
 
-class DrugList {
-  List<Drug> _allDrugs;
-  Map<String, int> _drugQuantity;
+class DrugInventory {
+  Drug _allDrugs;
+  int _drugQuantity;
+  String _measure;
 
-  DrugList(this._allDrugs, this._drugQuantity);
-}
-
-extension on Map<String, int> {
-  Map<String, int>? add(DrugImportOrder importOrder) {
-    for (final key in importOrder._importedDrugs.keys) {
-      if (!drugList.keys.contains(key)) {
-        drugList[key] = importOrder._importedDrugs[key]!;
-      } else {
-        drugList[key] = drugList[key]! + importOrder._importedDrugs[key]!;
-      }
-    }
-
-    return drugList;
-  }
+  DrugInventory(this._allDrugs, this._drugQuantity, this._measure);
 }
 
 class DrugImportOrder {
@@ -31,8 +18,8 @@ class DrugImportOrder {
 
 class Drug {
   final String _drugName;
-  final int _quantity;
   final double _price;
+  final String _description;
 
-  Drug(this._drugName, this._quantity, this._price);
+  Drug(this._drugName, this._price, this._description);
 }
