@@ -11,8 +11,8 @@ class Profile {
     required this.email,
   });
 
-  Profile updateProfile(
-      String newName, String newAddress, String newEmail, String newPhone) {
+  Future<Profile> updateProfile(String newName, String newAddress,
+      String newEmail, String newPhone) async {
     name = newName;
     address = newAddress;
     email = newEmail;

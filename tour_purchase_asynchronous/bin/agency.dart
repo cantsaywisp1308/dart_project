@@ -19,7 +19,7 @@ class Agency extends Profile with AgencyMixin {
 }
 
 mixin AgencyMixin {
-  void sellTour(Tour tour) {
+  Future<void> sellTour(Tour tour) async {
     if (this is Agency) {
       Tourist touristSearch =
           tourists.firstWhere((tourist) => tourist.touristID == tour.guestID);

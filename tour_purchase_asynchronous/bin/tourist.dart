@@ -40,7 +40,7 @@ extension TouristExtension on Tourist {
 }
 
 mixin TouristMixin {
-  void buyTour(Tour tour) {
+  Future<void> buyTour(Tour tour) async {
     if (this is Tourist) {
       (this as Tourist).score += tour.placeName.score;
       (this as Tourist).tours.add(tour);

@@ -5,7 +5,7 @@ import 'agency.dart';
 
 List<Place> places = [];
 
-void main() {
+void main() async {
   Place newYork = Place(
       name: 'New York',
       address: 'United States',
@@ -71,24 +71,24 @@ void main() {
     tourID: "SEA_012",
   );
 
-  jamesHall.buyTour(tourToSeatle);
+  await jamesHall.buyTour(tourToSeatle);
   print("James Hall's score:  ${jamesHall.score}");
   print(
       "James Hall's tours: ${jamesHall.tours.map((tour) => tour.tourID).toList()}");
 
-  mimiAngelito.buyTour(tourToNewYork);
+  await mimiAngelito.buyTour(tourToNewYork);
   print("Mimi's new score: ${mimiAngelito.score}");
   print(
       "Mimi's tours: ${mimiAngelito.tours.map((tour) => tour.tourID).toList()}");
 
-  agencyA.sellTour(tourToNewYork);
+  await agencyA.sellTour(tourToNewYork);
 
-  agencyA.sellTour(tourToSeatle);
+  await agencyA.sellTour(tourToSeatle);
 
   print(
       "All tours sold: ${agencyA.allToursSold.map((tour) => tour.tourID).toList()}");
 
-  mimiAngelito.updateProfile(
+  await mimiAngelito.updateProfile(
       "Mimi Kess", "Netherlands", "mimi@latimes.com", "5561231900");
   //print(mimi_Angelito.address);
   mimiAngelito.printInfo();
