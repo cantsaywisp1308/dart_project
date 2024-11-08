@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:isolate';
 import 'profile.dart';
 import 'tour.dart';
 
@@ -42,8 +44,36 @@ extension TouristExtension on Tourist {
 mixin TouristMixin {
   Future<void> buyTour(Tour tour) async {
     if (this is Tourist) {
-      (this as Tourist).score += tour.placeName.score;
-      (this as Tourist).tours.add(tour);
+      final receivePort = ReceivePort();
+      await Isolate.spawn(_buyTourIsolate, {
+        'port': receivePort.sendPort,
+        'tourist': this as Tourist,
+        'tour': tour
+      });
+      await for (final result in receivePort) {
+        if (result is Tourist) {
+          (this as Tourist).score += tour.placeName.score;
+          (this as Tourist).tours.add(tour);
+          receivePort.close();
+        }
+      }
     }
+  }
+
+  //private _
+  //Stream/ Future
+  //int[]
+  //List
+  //spread opeartor
+
+  void _buyTourIsolate(Map<String, dynamic> message) {
+    final sendPort = message['port'] as SendPort;
+    final tourist = message['tourist'] as Tourist;
+    final tour = message['tour'] as Tour;
+
+    tourist.score += tour.placeName.score;
+    tourist.tours.add(tour);
+
+    sendPort.send(tourist);
   }
 }

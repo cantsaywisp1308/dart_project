@@ -1,3 +1,4 @@
+import 'dart:isolate';
 import 'place.dart';
 import 'tourist.dart';
 import 'tour.dart';
@@ -92,4 +93,16 @@ void main() async {
       "Mimi Kess", "Netherlands", "mimi@latimes.com", "5561231900");
   //print(mimi_Angelito.address);
   mimiAngelito.printInfo();
+}
+
+// Helper function to spawn an isolate and wait for the result
+Future<void> _performInIsolate(
+    void Function(Map<String, dynamic>) isolateFunction,
+    Map<String, dynamic> message) async {
+  final receivePort = ReceivePort();
+  await Isolate.spawn(
+      isolateFunction, {'port': receivePort.sendPort, ...message});
+
+  await receivePort.first; // Wait for the isolate to finish processing
+  receivePort.close();
 }
