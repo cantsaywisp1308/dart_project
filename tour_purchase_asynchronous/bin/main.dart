@@ -22,6 +22,34 @@ void main() async {
       score: 100);
   places.add(seattle);
 
+  Place atalnta = Place(
+      name: 'Atlanta',
+      address: 'Georgia State',
+      description: 'A good city in the West',
+      score: 140);
+
+  places.add(atalnta);
+
+  for (Place place in places) {
+    print("Info for ${place.name}:");
+    await for (var info in place.printPlaceInfo()) {
+      print(info); // Prints each piece of place information asynchronously
+    }
+    print(""); // Separate places by a blank line
+  }
+  places - ("Atlanta");
+
+  print("Atlanta has been remove");
+  for (Place place in places) {
+    print("Info for ${place.name}:");
+    await for (var info in place.printPlaceInfo()) {
+      print(info); // Prints each piece of place information asynchronously
+    }
+    print(""); // Separate places by a blank line
+  }
+
+  //print(places);
+
   Tourist jamesHall = Tourist(
     touristID: "tourist_123",
     name: 'James Hall',
@@ -93,6 +121,7 @@ void main() async {
       "Mimi Kess", "Netherlands", "mimi@latimes.com", "5561231900");
   //print(mimi_Angelito.address);
   mimiAngelito.printInfo();
+  print(mimiAngelito.totalSpend());
 }
 
 // Helper function to spawn an isolate and wait for the result
@@ -105,4 +134,15 @@ Future<void> _performInIsolate(
 
   await receivePort.first; // Wait for the isolate to finish processing
   receivePort.close();
+}
+
+extension ListTourExt on List<Place> {
+  List<Place> operator +(Place place) {
+    return [...this, place];
+  }
+
+  List<Place> operator -(String placeName) {
+    this.removeWhere((place) => place.name == placeName);
+    return this;
+  }
 }

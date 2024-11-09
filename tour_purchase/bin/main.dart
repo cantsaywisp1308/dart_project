@@ -92,4 +92,5 @@ void main() {
       "Mimi Kess", "Netherlands", "mimi@latimes.com", "5561231900");
   //print(mimi_Angelito.address);
   mimiAngelito.printInfo();
+  print(mimiAngelito.totalSpend());
 }

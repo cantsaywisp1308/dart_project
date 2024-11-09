@@ -46,4 +46,15 @@ mixin TouristMixin {
       (this as Tourist).tours.add(tour);
     }
   }
+
+  T totalSpend<T extends num>() {
+    if (this is Tourist) {
+      var tourist = this as Tourist;
+      T total = tourist.tours
+          .map((tour) => tour.value as T)
+          .reduce((value, element) => (value + element) as T);
+      return total;
+    }
+    throw Exception("This method should only be called on a Tourist instance.");
+  }
 }

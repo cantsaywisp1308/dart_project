@@ -53,4 +53,11 @@ class Profile {
 
     sendPort.send(profile);
   }
+
+  void showInfo() {
+    print("Name: $name");
+    print("Address: $address");
+    print("Phone: $phone");
+    print("Email: $email");
+  }
 }

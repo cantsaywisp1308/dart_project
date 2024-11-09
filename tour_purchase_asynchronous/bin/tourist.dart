@@ -60,12 +60,6 @@ mixin TouristMixin {
     }
   }
 
-  //private _
-  //Stream/ Future
-  //int[]
-  //List
-  //spread opeartor
-
   void _buyTourIsolate(Map<String, dynamic> message) {
     final sendPort = message['port'] as SendPort;
     final tourist = message['tourist'] as Tourist;
@@ -75,5 +69,16 @@ mixin TouristMixin {
     tourist.tours.add(tour);
 
     sendPort.send(tourist);
+  }
+
+  T totalSpend<T extends num>() {
+    if (this is Tourist) {
+      var tourist = this as Tourist;
+      T total = tourist.tours
+          .map((tour) => tour.value as T)
+          .reduce((value, element) => (value + element) as T);
+      return total;
+    }
+    throw Exception("This method should only be called on a Tourist instance.");
   }
 }
